@@ -125,11 +125,12 @@ Lambda type argument resolution is currently supported for:
 
 #### On Unresolvable Lambda Type Arguments
 
-When resolving type arguments with lambda expressions is that only type parameters used in the functional interface's method signature can be resolved. Ex:
+When resolving type arguments with lambda expressions, only type parameters used in the functional interface's method signature can be resolved. Ex:
 
 ```java
 interface ExtraFunction<T, R, Z> extends Function<T, R>{}
 ExtraFunction<String, Integer, Long> strToInt = s -> Integer.valueOf(s);
+Class<?>[] typeArgs = TypeResolver.resolveRawArguments(Function.class, strToInt.getClass());
 
 assert typeArgs[0] == String.class;
 assert typeArgs[1] == Integer.class;
